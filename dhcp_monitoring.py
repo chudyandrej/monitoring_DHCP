@@ -187,12 +187,12 @@ def serviceDHCPmessage(packet):
         else:
             ip = unpack('!BBBB', packet[60:64])
         fullAddress = str(ip[0]) + "." + str(ip[1]) + "." + str(ip[2]) + "." + str(ip[3])
-        ackMessageService(ipAddress, leaseTime)
+        ackMessageService(fullAddress, leaseTime)
 
     # Release message
     elif (typeOfDhcpMessage[1] == 7):
         ip = unpack('!BBBB', packet[56:60])
-        fullAddress = str(ip[0]) + "." + str(ip[1])  "." + str(ip[2]) + "." + str(ip[3])
+        fullAddress = str(ip[0]) + "." + str(ip[1]) + "." + str(ip[2]) + "." + str(ip[3])
         releaseMessageService(fullAddress)
 
 
@@ -306,7 +306,7 @@ def main():
     cap = pcapy.open_live("any", 57600, 1, 0)
 
     if args['c']:
-        csvExporter = ExportCSV(args['c'])
+        ExportCSV(args['c'])
 
     # Init window in output terminal
     outputWindow = Curese()
